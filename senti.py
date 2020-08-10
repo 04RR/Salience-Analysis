@@ -26,6 +26,6 @@ sentiment, entities = language_analysis(text)
 
 dicti = {}
 for e in entities:
-    print(f'Word: {e.name}\nType: {e.type}\nSalience: {round(e.salience)}\n')
+    print(f'Word: {e.name}\nType: {e.type}\nSalience: {round(e.salience,2)}\n')
 
 print(f'Sentiment\n{sentiment}')
