@@ -19,7 +19,7 @@ app.post("/", (req, res) => {
 
 app.get("/result", (req, res) => {
   var dataToSend;
-  const python = spawn("python", ["./senti.py", req.query.text]);
+  const python = spawn("python", ["./All_senti.py", req.query.text]);
 
   python.stdout.on("data", (data) => {
     console.log("Pipe data from python script ...");
