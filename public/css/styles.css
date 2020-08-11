@@ -104,6 +104,8 @@ hr {
   top: 88%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin: 10px;
+  margin-bottom: 20px;
 }
 
 /* MEDIA QUERIES */
