@@ -19,11 +19,13 @@ app.post("/", (req, res) => {
 
 app.get("/result", (req, res) => {
   var dataToSend;
+  var arrayString;
   const python = spawn("python", ["./All_senti.py", req.query.text]);
 
   python.stdout.on("data", (data) => {
     console.log("Pipe data from python script ...");
     dataToSend = data.toString();
+    arrayString = dataToSend.split("\r\n" + "\r\n");
   });
 
   python.stderr.on("data", (error) => {
@@ -31,7 +33,7 @@ app.get("/result", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-    res.render("index", {result: dataToSend});
+    res.render("index", {result: arrayString});
   });
 });
 
