@@ -9,8 +9,11 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(express.static("public"));
 
+var initial;
+
 app.get("/", (req, res) => {
-  res.render("index", {result: " SUBMIT TEXT TO GET RESULT!"});
+  initial = true;
+  res.render("index", {result: " SUBMIT TEXT TO GET RESULT!", initial});
 });
 
 app.post("/", (req, res) => {
@@ -20,6 +23,7 @@ app.post("/", (req, res) => {
 app.get("/result", (req, res) => {
   var dataToSend;
   var arrayString;
+  initial = false;
   const python = spawn("python", ["./All_senti.py", req.query.text]);
 
   python.stdout.on("data", (data) => {
@@ -33,7 +37,7 @@ app.get("/result", (req, res) => {
   });
   python.on("close", (code) => {
     console.log(`child process close all stdio with code ${code}`);
-    res.render("index", {result: arrayString});
+    res.render("index", {result: arrayString, initial});
   });
 });
 
